@@ -1,8 +1,8 @@
 Package.describe({
-  name: "ethereum:tools",
+  name: "happyuc:tools",
   summary: "Helper functions for dapps",
-  version: "1.1.0",
-  git: "http://github.com/ethereum/meteor-package-tools"
+  version: "1.0.0",
+  git: "http://github.com/happyuc-project/meteor-package-tools"
 });
 
 Package.onUse(function(api) {
@@ -18,13 +18,13 @@ Package.onUse(function(api) {
   //api.use('numeral:numeral@1.5.3', ['client', 'server']);
   api.use("3stack:bignumber@2.0.0", "client");
 
-  api.use("ethereum:web3@1.0.0-beta.33", ["client", "server"]);
+  api.use("happyuc:webu@1.0.0", ["client", "server"]);
   api.use("frozeman:persistent-minimongo@0.1.8", "client");
   api.use("frozeman:storage@0.1.8", "client");
 
-  api.export(["EthTools"], ["client", "server"]);
+  api.export(["HucTools"], ["client", "server"]);
 
-  api.addFiles("ethtools.js", ["client", "server"]);
+  api.addFiles("tools.js", ["client", "server"]);
   api.addFiles("ticker.js", ["client", "server"]);
 
   api.addFiles("globalHelpers.js", "client");
@@ -32,6 +32,6 @@ Package.onUse(function(api) {
 
 Package.onTest(function(api) {
   api.use("tinytest");
-  api.use("ethereum:tools");
-  api.addFiles("ethtools-tests.js", ["client", "server"]);
+  api.use("happyuc:tools");
+  api.addFiles("tools-tests.js", ["client", "server"]);
 });

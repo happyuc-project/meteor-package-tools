@@ -10,13 +10,13 @@ You can either add it as a Meteor package using:
 
     $ Meteor add ethereum:tools
 
-or add link to the `ethtools.js` in your HTML.
+or add link to the `tools.js` in your HTML.
 
 ## Usage
 
 This package provides formating and converting functionality.
 
-When using the `EthTools.ticker` it will call the [cryptocompare.com public API](https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BTC,USD,EUR) every 30s to retrive price information for ether.
+When using the `HucTools.ticker` it will call the [cryptocompare.com public API](https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BTC,USD,EUR) every 30s to retrive price information for ether.
 When used as a Meteor package, the following units are possible for some methods:
 
     - `btc`
@@ -25,7 +25,7 @@ When used as a Meteor package, the following units are possible for some methods
     - `cad`
     - `gbp`
     - `jpy`
-    - And all ether units ('ether', 'finney', 'wei', etc)
+    - And all ether units ('hucer', 'finney', 'wei', etc)
 
 **Note** As non-meteor package you can only use the ether units.
 
@@ -38,10 +38,10 @@ When used as a Meteor package, the following units are possible for some methods
 
 **Note** This is only available when used as a Meteor package.
 
-To start polling for ticker prices run `EthTools.ticker.start()`
+To start polling for ticker prices run `HucTools.ticker.start()`
 
 It gives you the latest price for ether based on the [kraken.com public API](https://api.kraken.com/0/public/Ticker?pair=XETHZEUR,XXBTZUSD).
-`EthTools.ticker` is a reactive collection, so when used in a reactive function it will re-run this function when the price is updated.
+`HucTools.ticker` is a reactive collection, so when used in a reactive function it will re-run this function when the price is updated.
 
 The ticker will be updated every 30 seconds.
 
@@ -79,7 +79,7 @@ if (usd) console.log(usd.price); // "2.0000"
     EthTools.setLocale(locale)
 
 Set the locale to display numbers differently in other countries.
-This functions lets `EthTools.formatBalance()` and `EthTools.formatNumber()` reactivly re-run, to show the new format.
+This functions lets `HucTools.formatBalance()` and `HucTools.formatNumber()` reactivly re-run, to show the new format.
 
 **Parameters**
 
@@ -105,7 +105,7 @@ EthTools.formatNumber(2000, "0,0.00");
 
 **Note** This is only available when used as a Meteor package.
 
-Reactivly sets a unit used as default unit, when no unit is passed to other EthTools methods.
+Reactivly sets a unit used as default unit, when no unit is passed to other HucTools methods.
 And also persists it in localstorage so its the same when you reload you app.
 
 Default is unit `ether`.
@@ -137,7 +137,7 @@ Tracker.autorun(function() {
 
 **Note** This is only available when used as a Meteor package.
 
-Reactivly gets the current set default unit, used byt other EthTools methods when no unit was passed.
+Reactivly gets the current set default unit, used byt other HucTools methods when no unit was passed.
 And also persists it in localstorage so its the same when you reload you app.
 
 Default is unit `ether`.
@@ -208,14 +208,14 @@ Default is unit `ether`.
 The `format` property follows the [numeral.js](http://numeraljs.com) formatting, e.g. `"0,0.00[0000]"`.
 Additionally you can add `"unit"` or `"UNIT"` (for uppercase) to display the unit after or before the number the number.
 
-Additionally this function uses the reactive `EthTools.getUnit()` variable, when no `unit` was given.
-You can then reactivly change the unit using `EthTools.setUnit('finney')`
+Additionally this function uses the reactive `HucTools.getUnit()` variable, when no `unit` was given.
+You can then reactivly change the unit using `HucTools.setUnit('finney')`
 
 **Parameters**
 
 * `wei` (`String|Number`) - the amount of wei to convert and format
 * `format` (`String`) - the format see [numeral.js](http://numeraljs.com) for examples, e.g. `"0,0.00[0000]"`.
-* `unit` (`String`) - (optional) the unit to convert the given wei amount to, if not given it will use `EthTools.getUnit()`
+* `unit` (`String`) - (optional) the unit to convert the given wei amount to, if not given it will use `HucTools.getUnit()`
 
 **Returns**
 
@@ -244,13 +244,13 @@ var amount = EthTools.formatBalance(
 {{dapp_formatBalance "1000000133" "0,0.00[0000]" "ether"}}
 ```
 
-If you leave the last value it will use `EthTools.getUnit()`, as reactive localstorage variable.
+If you leave the last value it will use `HucTools.getUnit()`, as reactive localstorage variable.
 
 ```html
 {{dapp_formatBalance "1000000133" "0,0.00"}}
 ```
 
-Use then `EthTools.setUnit(finney')` to change the unit and displayed balances.
+Use then `HucTools.setUnit(finney')` to change the unit and displayed balances.
 
 ---
 
@@ -262,8 +262,8 @@ Formats an amount of any supported unit (see [Usage](#usage)) into wei.
 
 Default is unit `ether`.
 
-Additionally this function uses the reactive `EthTools.getUnit()` variable, when no `unit` was given.
-You can then reactivly change the unit using `EthTools.setUnit('finney')`
+Additionally this function uses the reactive `HucTools.getUnit()` variable, when no `unit` was given.
+You can then reactivly change the unit using `HucTools.setUnit('finney')`
 
 **Parameters**
 

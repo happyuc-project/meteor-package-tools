@@ -5,9 +5,9 @@ Template Controllers
 */
 
 /**
-Helper functions for ethereum dapps
+Helper functions for happyuc dapps
 
-@class [packages] ethereum:tools
+@class [packages] happyuc:tools
 @constructor
 */
 
@@ -53,7 +53,7 @@ var supportedCurrencies = function(unit) {
 };
 
 /**
-Gets the ether unit if not set from localstorage
+Gets the hucer unit if not set from localstorage
 
 @method getUnit
 @param {String} unit
@@ -61,11 +61,11 @@ Gets the ether unit if not set from localstorage
 */
 var getUnit = function(unit) {
   if (!_.isString(unit)) {
-    unit = LocalStore.get("dapp_etherUnit");
+    unit = LocalStore.get("dapp_hucerUnit");
 
     if (!unit) {
-      unit = "ether";
-      LocalStore.set("dapp_etherUnit", unit);
+      unit = "hucer";
+      LocalStore.set("dapp_hucerUnit", unit);
     }
   }
 
@@ -73,34 +73,34 @@ var getUnit = function(unit) {
 };
 
 /**
-Helper functions for ethereum dapps
+Helper functions for happyuc dapps
 
-@class EthTools
+@class HucTools
 @constructor
 */
 
-EthTools = {
+HucTools = {
   lang: "en"
 };
 
 if (isMeteorPackage) {
   /**
-    Sets the default unit used by all EthTools functions, if no unit is provided.
+    Sets the default unit used by all HucTools functions, if no unit is provided.
 
-        EthTools.setUnit('ether')
+        HucTools.setUnit('hucer')
 
     @method setUnit
-    @param {String} unit the unit like 'ether', or 'eur'
+    @param {String} unit the unit like 'hucer', or 'eur'
     @param {Boolean}
     **/
-  EthTools.setUnit = function(unit) {
+  HucTools.setUnit = function(unit) {
     if (supportedCurrencies(unit)) {
-      LocalStore.set("dapp_etherUnit", unit);
+      LocalStore.set("dapp_hucerUnit", unit);
       return true;
     } else {
       try {
-        web3.utils.toWei('1', unit);
-        LocalStore.set("dapp_etherUnit", unit);
+        webu.utils.toWei('1', unit);
+        LocalStore.set("dapp_hucerUnit", unit);
         return true;
       } catch (e) {
         return false;
@@ -109,30 +109,30 @@ if (isMeteorPackage) {
   };
 
   /**
-    Get the default unit used by all EthTools functions, if no unit is provided.
+    Get the default unit used by all HucTools functions, if no unit is provided.
 
-        EthTools.getUnit()
+        HucTools.getUnit()
 
     @method getUnit
-    @return {String} unit the unit like 'ether', or 'eur'
+    @return {String} unit the unit like 'hucer', or 'eur'
     **/
-  EthTools.getUnit = function() {
-    return LocalStore.get("dapp_etherUnit");
+  HucTools.getUnit = function() {
+    return LocalStore.get("dapp_hucerUnit");
   };
 }
 
 /**
 Sets the locale to display numbers in different formats.
 
-    EthTools.setLocale('de')
+    HucTools.setLocale('de')
 
 @method language
 @param {String} lang the locale like "de" or "de-DE"
 **/
-EthTools.setLocale = function(lang) {
+HucTools.setLocale = function(lang) {
   var lang = lang.substr(0, 2).toLowerCase();
   // numeral.language(lang);
-  EthTools.lang = lang;
+  HucTools.lang = lang;
 
   dependency.changed();
 
@@ -142,14 +142,14 @@ EthTools.setLocale = function(lang) {
 /**
 Formats a given number
 
-    EthTools.formatNumber(10000, "0.0[000]")
+    HucTools.formatNumber(10000, "0.0[000]")
 
 @method formatNumber
 @param {Number|String|BigNumber} number the number to format
 @param {String} format           the format string e.g. "0,0.0[000]" see http://numeraljs.com for more.
 @return {String} The formated time
 **/
-EthTools.formatNumber = function(number, format) {
+HucTools.formatNumber = function(number, format) {
   var length = (optionalLength = 0);
   dependency.depend();
 
@@ -161,7 +161,7 @@ EthTools.formatNumber = function(number, format) {
   if (_.isFinite(number) && !_.isObject(number)) number = new BigNumber(number);
 
   options =
-    EthTools.lang === "en"
+    HucTools.lang === "en"
       ? {
           decimalSeparator: ".",
           groupSeparator: ",",
@@ -220,14 +220,14 @@ EthTools.formatNumber = function(number, format) {
 /**
 Formats a number of wei to a balance.
 
-    EthTools.formatBalance(myNumber, "0,0.0[0000] unit")
+    HucTools.formatBalance(myNumber, "0,0.0[0000] unit")
 
 @method (formatBalance)
 @param {String} number
 @param {String} format       the format string
 @return {String} The formatted number
 **/
-EthTools.formatBalance = function(number, format, unit) {
+HucTools.formatBalance = function(number, format, unit) {
   dependency.depend();
 
   if (!_.isFinite(number) && !(number instanceof BigNumber)) number = 0;
@@ -238,15 +238,15 @@ EthTools.formatBalance = function(number, format, unit) {
 
   unit = getUnit(unit);
 
-  if (typeof EthTools.ticker !== "undefined" && supportedCurrencies(unit)) {
-    var ticker = EthTools.ticker.findOne(unit, { fields: { price: 1 } });
+  if (typeof HucTools.ticker !== "undefined" && supportedCurrencies(unit)) {
+    var ticker = HucTools.ticker.findOne(unit, { fields: { price: 1 } });
 
-    // convert first to ether
-    number = web3.utils.fromWei(
+    // convert first to hucer
+    number = webu.utils.fromWei(
       number instanceof BigNumber || typeof number === "number"
-        ? web3.utils.toBN(number)
+        ? webu.utils.toBN(number)
         : number,
-      "ether"
+      "hucer"
     );
 
     // then times the currency
@@ -259,9 +259,9 @@ EthTools.formatBalance = function(number, format, unit) {
       number = "0";
     }
   } else {
-    number = web3.utils.fromWei(
+    number = webu.utils.fromWei(
       number instanceof BigNumber || typeof number === "number"
-        ? web3.utils.toBN(number)
+        ? webu.utils.toBN(number)
         : number,
       unit.toLowerCase()
     );
@@ -274,34 +274,34 @@ EthTools.formatBalance = function(number, format, unit) {
 
   if (format.toLowerCase().indexOf("unit") !== -1) {
     return format
-      .replace("__format__", EthTools.formatNumber(number, cleanedFormat))
+      .replace("__format__", HucTools.formatNumber(number, cleanedFormat))
       .replace(/unit/i, isUppercase ? unit.toUpperCase() : unit);
-  } else return EthTools.formatNumber(number, cleanedFormat);
+  } else return HucTools.formatNumber(number, cleanedFormat);
 };
 
 /**
-Formats any of the supported currency to ethereum wei.
+Formats any of the supported currency to happyuc wei.
 
-    EthTools.toWei(myNumber, unit)
+    HucTools.toWei(myNumber, unit)
 
 @method (toWei)
 @param {String} number
 @return {String} unit
 **/
-EthTools.toWei = function(number, unit) {
+HucTools.toWei = function(number, unit) {
   if (!_.isFinite(number) && !(number instanceof BigNumber)) return number;
 
   unit = getUnit(unit);
 
-  if (typeof EthTools.ticker !== "undefined" && supportedCurrencies(unit)) {
-    var ticker = EthTools.ticker.findOne(unit, { fields: { price: 1 } });
+  if (typeof HucTools.ticker !== "undefined" && supportedCurrencies(unit)) {
+    var ticker = HucTools.ticker.findOne(unit, { fields: { price: 1 } });
 
-    // convert first to ether
-    number = web3.utils.toWei(
+    // convert first to hucer
+    number = webu.utils.toWei(
       number instanceof BigNumber || typeof number === "number"
-        ? web3.utils.toBN(number)
+        ? webu.utils.toBN(number)
         : number,
-      "ether"
+      "hucer"
     );
 
     // then times the currency
@@ -317,9 +317,9 @@ EthTools.toWei = function(number, unit) {
       number = "0";
     }
   } else {
-    number = web3.utils.toWei(
+    number = webu.utils.toWei(
       number instanceof BigNumber || typeof number === "number"
-        ? web3.utils.toBN(number)
+        ? webu.utils.toBN(number)
         : number,
       unit.toLowerCase()
     );

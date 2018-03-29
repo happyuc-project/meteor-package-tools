@@ -1,16 +1,16 @@
 // Price ticker
-EthTools.ticker = new Mongo.Collection("ethereum_price_ticker", {
+HucTools.ticker = new Mongo.Collection("happyuc_price_ticker", {
   connection: null
 });
-if (Meteor.isClient) new PersistentMinimongo(EthTools.ticker);
+if (Meteor.isClient) new PersistentMinimongo(HucTools.ticker);
 
-EthTools.ticker.start = function(options) {
+HucTools.ticker.start = function(options) {
   options = options || {};
   if (!options.currencies) {
     options.currencies = ["BTC", "USD", "EUR"];
   }
   var url =
-    "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=" +
+    "https://min-api.cryptocompare.com/data/price?fsym=HUC&tsyms=" +
     options.currencies.join(",");
   if (options.extraParams) {
     url += "&extraParams=" + options.extraParams;
@@ -26,7 +26,7 @@ EthTools.ticker.start = function(options) {
 
           // make sure its a number and nothing else!
           if (_.isFinite(price)) {
-            EthTools.ticker.upsert(name, {
+            HucTools.ticker.upsert(name, {
               $set: {
                 price: String(price),
                 timestamp: null
