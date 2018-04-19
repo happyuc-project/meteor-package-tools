@@ -1,7 +1,7 @@
 Package.describe({
   name: "happyuc:tools",
   summary: "Helper functions for dapps",
-  version: "1.0.2",
+  version: "1.0.3",
   git: "http://github.com/happyuc-project/meteor-package-tools"
 });
 

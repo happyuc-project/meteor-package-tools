@@ -25,14 +25,14 @@ ejson@1.1.0
 frozeman:persistent-minimongo@0.1.8
 frozeman:storage@0.1.9
 geojson-utils@1.0.10
-happyuc:tools@1.0.2
-happyuc:webu@1.0.3
+happyuc:tools@1.0.3
+happyuc:webu@1.0.5
 html-tools@1.0.11
 htmljs@1.0.11
 http@1.4.0
 id-map@1.1.0
 jquery@1.11.10
-local-test:happyuc:tools@1.0.1
+local-test:happyuc:tools@1.0.2
 localstorage@1.2.0
 logging@1.1.19
 meteor@1.8.2
