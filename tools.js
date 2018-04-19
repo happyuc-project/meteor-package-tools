@@ -53,7 +53,7 @@ var supportedCurrencies = function(unit) {
 };
 
 /**
-Gets the hucer unit if not set from localstorage
+Gets the huc unit if not set from localstorage
 
 @method getUnit
 @param {String} unit
@@ -61,11 +61,11 @@ Gets the hucer unit if not set from localstorage
 */
 var getUnit = function(unit) {
   if (!_.isString(unit)) {
-    unit = LocalStore.get("dapp_hucerUnit");
+    unit = LocalStore.get("dapp_hucUnit");
 
     if (!unit) {
-      unit = "hucer";
-      LocalStore.set("dapp_hucerUnit", unit);
+      unit = "huc";
+      LocalStore.set("dapp_hucUnit", unit);
     }
   }
 
@@ -87,20 +87,20 @@ if (isMeteorPackage) {
   /**
     Sets the default unit used by all HucTools functions, if no unit is provided.
 
-        HucTools.setUnit('hucer')
+        HucTools.setUnit('huc')
 
     @method setUnit
-    @param {String} unit the unit like 'hucer', or 'eur'
+    @param {String} unit the unit like 'huc', or 'eur'
     @param {Boolean}
     **/
   HucTools.setUnit = function(unit) {
     if (supportedCurrencies(unit)) {
-      LocalStore.set("dapp_hucerUnit", unit);
+      LocalStore.set("dapp_hucUnit", unit);
       return true;
     } else {
       try {
-        webu.utils.toWei('1', unit);
-        LocalStore.set("dapp_hucerUnit", unit);
+        webu.toWei('1', unit);
+        LocalStore.set("dapp_hucUnit", unit);
         return true;
       } catch (e) {
         return false;
@@ -114,10 +114,10 @@ if (isMeteorPackage) {
         HucTools.getUnit()
 
     @method getUnit
-    @return {String} unit the unit like 'hucer', or 'eur'
+    @return {String} unit the unit like 'huc', or 'eur'
     **/
   HucTools.getUnit = function() {
-    return LocalStore.get("dapp_hucerUnit");
+    return LocalStore.get("dapp_hucUnit");
   };
 }
 
@@ -241,12 +241,12 @@ HucTools.formatBalance = function(number, format, unit) {
   if (typeof HucTools.ticker !== "undefined" && supportedCurrencies(unit)) {
     var ticker = HucTools.ticker.findOne(unit, { fields: { price: 1 } });
 
-    // convert first to hucer
-    number = webu.utils.fromWei(
+    // convert first to huc
+    number = webu.fromWei(
       number instanceof BigNumber || typeof number === "number"
-        ? webu.utils.toBN(number)
+        ? webu.toBigNumber(number)
         : number,
-      "hucer"
+      "huc"
     );
 
     // then times the currency
@@ -259,9 +259,9 @@ HucTools.formatBalance = function(number, format, unit) {
       number = "0";
     }
   } else {
-    number = webu.utils.fromWei(
+    number = webu.fromWei(
       number instanceof BigNumber || typeof number === "number"
-        ? webu.utils.toBN(number)
+        ? webu.toBigNumber(number)
         : number,
       unit.toLowerCase()
     );
@@ -296,12 +296,12 @@ HucTools.toWei = function(number, unit) {
   if (typeof HucTools.ticker !== "undefined" && supportedCurrencies(unit)) {
     var ticker = HucTools.ticker.findOne(unit, { fields: { price: 1 } });
 
-    // convert first to hucer
-    number = webu.utils.toWei(
+    // convert first to huc
+    number = webu.toWei(
       number instanceof BigNumber || typeof number === "number"
-        ? webu.utils.toBN(number)
+        ? webu.toBigNumber(number)
         : number,
-      "hucer"
+      "huc"
     );
 
     // then times the currency
@@ -317,9 +317,9 @@ HucTools.toWei = function(number, unit) {
       number = "0";
     }
   } else {
-    number = webu.utils.toWei(
+    number = webu.toWei(
       number instanceof BigNumber || typeof number === "number"
-        ? webu.utils.toBN(number)
+        ? webu.toBigNumber(number)
         : number,
       unit.toLowerCase()
     );

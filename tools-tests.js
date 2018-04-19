@@ -36,11 +36,11 @@ Tinytest.add("HucTools.formatNumber", function(test) {
 });
 
 Tinytest.add("HucTools.formatBalance", function(test) {
-  // default to hucer
-  if (Meteor.isClient) HucTools.setUnit("hucer");
+  // default to huc
+  if (Meteor.isClient) HucTools.setUnit("huc");
   test.equal(
     HucTools.formatBalance("1000000000000000000", "0,0.0[00] unit"),
-    "1.0 hucer"
+    "1.0 huc"
   );
 
   // default to finney
@@ -151,5 +151,5 @@ Tinytest.add("HucTools.formatBalance", function(test) {
   );
 
   // reset
-  if (Meteor.isClient) HucTools.setUnit("hucer");
+  if (Meteor.isClient) HucTools.setUnit("huc");
 });

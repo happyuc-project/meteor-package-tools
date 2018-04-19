@@ -1,6 +1,6 @@
-# Ethereum tools
+# HappyUC tools
 
-A set of helper functions for ethereum dapps.
+A set of helper functions for happyUC dapps.
 
 See here for a [demo of the template helpers](http://localhost:4000/#tools).
 
@@ -8,7 +8,7 @@ See here for a [demo of the template helpers](http://localhost:4000/#tools).
 
 You can either add it as a Meteor package using:
 
-    $ Meteor add ethereum:tools
+    $ Meteor add happyuc:tools
 
 or add link to the `tools.js` in your HTML.
 
@@ -16,7 +16,7 @@ or add link to the `tools.js` in your HTML.
 
 This package provides formating and converting functionality.
 
-When using the `HucTools.ticker` it will call the [cryptocompare.com public API](https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BTC,USD,EUR) every 30s to retrive price information for ether.
+When using the `HucTools.ticker` it will call the [cryptocompare.com public API](https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BTC,USD,EUR) every 30s to retrive price information for huc.
 When used as a Meteor package, the following units are possible for some methods:
 
     - `btc`
@@ -25,22 +25,22 @@ When used as a Meteor package, the following units are possible for some methods
     - `cad`
     - `gbp`
     - `jpy`
-    - And all ether units ('hucer', 'finney', 'wei', etc)
+    - And all huc units ('hucer', 'finney', 'wei', etc)
 
-**Note** As non-meteor package you can only use the ether units.
+**Note** As non-meteor package you can only use the huc units.
 
 ---
 
-### EthTools.ticker
+### HucTools.ticker
 
-    EthTools.ticker.start();
-    EthTools.ticker.findOne(unit)
+    HucTools.ticker.start();
+    HucTools.ticker.findOne(unit)
 
 **Note** This is only available when used as a Meteor package.
 
 To start polling for ticker prices run `HucTools.ticker.start()`
 
-It gives you the latest price for ether based on the [kraken.com public API](https://api.kraken.com/0/public/Ticker?pair=XETHZEUR,XXBTZUSD).
+It gives you the latest price for huc based on the [kraken.com public API](https://api.kraken.com/0/public/Ticker?pair=XETHZEUR,XXBTZUSD).
 `HucTools.ticker` is a reactive collection, so when used in a reactive function it will re-run this function when the price is updated.
 
 The ticker will be updated every 30 seconds.
@@ -67,16 +67,16 @@ Its a normal Meteor collection
 **Example**
 
 ```js
-var usd = EthTools.ticker.findOne("usd");
+var usd = HucTools.ticker.findOne("usd");
 
 if (usd) console.log(usd.price); // "2.0000"
 ```
 
 ---
 
-### EthTools.setLocale
+### HucTools.setLocale
 
-    EthTools.setLocale(locale)
+    HucTools.setLocale(locale)
 
 Set the locale to display numbers differently in other countries.
 This functions lets `HucTools.formatBalance()` and `HucTools.formatNumber()` reactivly re-run, to show the new format.
@@ -92,23 +92,23 @@ This functions lets `HucTools.formatBalance()` and `HucTools.formatNumber()` rea
 **Example**
 
 ```js
-EthTools.setLocale("de");
-EthTools.formatNumber(2000, "0,0.00");
+HucTools.setLocale("de");
+HucTools.formatNumber(2000, "0,0.00");
 // 2 000,00
 ```
 
 ---
 
-### EthTools.setUnit
+### HucTools.setUnit
 
-    EthTools.setUnit(unit)
+    HucTools.setUnit(unit)
 
 **Note** This is only available when used as a Meteor package.
 
 Reactivly sets a unit used as default unit, when no unit is passed to other HucTools methods.
 And also persists it in localstorage so its the same when you reload you app.
 
-Default is unit `ether`.
+Default is unit `huc`.
 
 **Parameters**
 
@@ -121,26 +121,26 @@ Default is unit `ether`.
 **Example**
 
 ```js
-EthTools.setUnit("btc");
+HucTools.setUnit("btc");
 
 Tracker.autorun(function() {
-  var amount = EthTools.formatBalance("23000000000000000000", "0,0.0[00] unit");
+  var amount = HucTools.formatBalance("23000000000000000000", "0,0.0[00] unit");
   // amount = "0.287 btc"
 });
 ```
 
 ---
 
-### EthTools.getUnit
+### HucTools.getUnit
 
-    EthTools.getUnit()
+    HucTools.getUnit()
 
 **Note** This is only available when used as a Meteor package.
 
 Reactivly gets the current set default unit, used byt other HucTools methods when no unit was passed.
 And also persists it in localstorage so its the same when you reload you app.
 
-Default is unit `ether`.
+Default is unit `huc`.
 
 **Parameters**
 
@@ -153,19 +153,19 @@ none
 **Example**
 
 ```js
-EthTools.setUnit("btc");
+HucTools.setUnit("btc");
 
 Tracker.autorun(function() {
-  var unit = EthTools.getUnit();
+  var unit = HucTools.getUnit();
   // unit === 'btc'
 });
 ```
 
 ---
 
-### EthTools.formatNumber
+### HucTools.formatNumber
 
-    EthTools.formatNumber(number, format)
+    HucTools.formatNumber(number, format)
 
 Formats any number using [numeral.js](http://numeraljs.com), e.g. `"0,0.00[0000]"`.
 
@@ -181,7 +181,7 @@ Formats any number using [numeral.js](http://numeraljs.com), e.g. `"0,0.00[0000]
 **Example**
 
 ```js
-var finney = EthTools.formatNumber(2000, "0,0.00");
+var finney = HucTools.formatNumber(2000, "0,0.00");
 // finney = '2,000.00'
 ```
 
@@ -197,11 +197,11 @@ var finney = EthTools.formatNumber(2000, "0,0.00");
 
 ---
 
-### EthTools.formatBalance
+### HucTools.formatBalance
 
-    EthTools.formatBalance(wei, format, unit)
+    HucTools.formatBalance(wei, format, unit)
 
-Formats a number of wei into any other ethereum unit and other currencies (see [Usage](#usage)).
+Formats a number of wei into any other huc unit and other currencies (see [Usage](#usage)).
 
 Default is unit `ether`.
 
@@ -224,7 +224,7 @@ You can then reactivly change the unit using `HucTools.setUnit('finney')`
 **Example**
 
 ```js
-var amount = EthTools.formatBalance(
+var amount = HucTools.formatBalance(
   112345676543212345,
   "0,0.0[00] unit",
   "finney"
@@ -254,9 +254,9 @@ Use then `HucTools.setUnit(finney')` to change the unit and displayed balances.
 
 ---
 
-### EthTools.toWei
+### HucTools.toWei
 
-    EthTools.toWei(number, unit)
+    HucTools.toWei(number, unit)
 
 Formats an amount of any supported unit (see [Usage](#usage)) into wei.
 
@@ -277,6 +277,6 @@ You can then reactivly change the unit using `HucTools.setUnit('finney')`
 **Example**
 
 ```js
-var wei = EthTools.toWei(23, "btc");
+var wei = HucTools.toWei(23, "btc");
 // wei = "80000000000000000000"
 ```
