@@ -91,7 +91,6 @@ if (isMeteorPackage) {
 
     @method setUnit
     @param {String} unit the unit like 'huc', or 'eur'
-    @param {Boolean}
     **/
   HucTools.setUnit = function(unit) {
     if (supportedCurrencies(unit)) {
@@ -145,7 +144,7 @@ Formats a given number
     HucTools.formatNumber(10000, "0.0[000]")
 
 @method formatNumber
-@param {Number|String|BigNumber} number the number to format
+@param {Number|String} number the number to format
 @param {String} format           the format string e.g. "0,0.0[000]" see http://numeraljs.com for more.
 @return {String} The formated time
 **/
@@ -180,11 +179,11 @@ HucTools.formatNumber = function(number, format) {
     if (~format.indexOf("[")) {
       length = format
         .substr(decimalPos, format.indexOf("[") - decimalPos)
-        .replace(/[\.\[\]]/g, "").length;
+        .replace(/[.\[\]]/g, "").length;
       optionalLength = format.substr(format.indexOf("[")).replace(/[\[\]]/g, "")
         .length;
     } else {
-      length = format.substr(decimalPos).replace(/[\.\[\]]/g, "").length;
+      length = format.substr(decimalPos).replace(/[.\[\]]/g, "").length;
       optionalLength = 0;
     }
   }

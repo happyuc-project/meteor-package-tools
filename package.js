@@ -1,7 +1,7 @@
 Package.describe({
   name: "happyuc:tools",
   summary: "Helper functions for dapps",
-  version: "1.1.0",
+  version: "1.1.1",
   git: "http://github.com/happyuc-project/meteor-package-tools"
 });
 
@@ -14,7 +14,7 @@ Package.onUse(function(api) {
   api.use("templating", "client");
   api.use("tracker", "client");
   api.use("3stack:bignumber@2.0.0", "client");
-  api.use("happyuc:webu@1.0.0", ["client", "server"]);
+  api.use("happyuc:webu@1.0.5", ["client", "server"]);
   api.use("frozeman:persistent-minimongo@0.1.8", "client");
   api.use("frozeman:storage@0.1.8", "client");
 
