@@ -16,22 +16,12 @@ var isMeteorPackage = true;
 // setup LocalStore if not available
 if (typeof LocalStore === 'undefined') {
   isMeteorPackage = false;
-  LocalStore = {
-    get: function() {},
-    set: function() {},
-  };
+  LocalStore = {get: function() {}, set: function() {}};
 }
 
 // stup Tracker if not available
 if (typeof Tracker === 'undefined')
-  Tracker = {
-    Dependency: function() {
-      return {
-        depend : function() {},
-        changed: function() {},
-      };
-    },
-  };
+  Tracker = {Dependency: function() { return {depend: function() {}, changed: function() {}}; }};
 
 var dependency = new Tracker.Dependency();
 
@@ -81,9 +71,7 @@ var getUnit = function(unit) {
  @constructor
  */
 
-HucTools = {
-  lang: 'en',
-};
+HucTools = {lang: 'en'};
 
 if (isMeteorPackage) {
   /**
@@ -191,10 +179,7 @@ HucTools.formatNumber = function(number, format) {
 
   // if segements are detected, rebuild the number string
   if (fullLength) {
-    var beforeDecimal = number.substr(
-        0,
-        number.indexOf(options.decimalSeparator) + 1,
-    );
+    var beforeDecimal = number.substr(0, number.indexOf(options.decimalSeparator) + 1);
     var afterDecimal = number.replace(beforeDecimal, '').substr(0, length);
     var afterDecimalOptional = number.replace(beforeDecimal, '').substr(length, optionalLength).replace(/0*$/, '');
     beforeDecimal = beforeDecimal.replace(options.decimalSeparator, '');
@@ -242,8 +227,7 @@ HucTools.formatBalance = function(number, format, unit) {
         number instanceof BigNumber || typeof number === 'number'
             ? webu.toBigNumber(number)
             : number,
-        'huc',
-    );
+        'huc');
 
     // then times the currency
     if (ticker) {
@@ -297,8 +281,7 @@ HucTools.toWei = function(number, unit) {
         number instanceof BigNumber || typeof number === 'number'
             ? webu.toBigNumber(number)
             : number,
-        'huc',
-    );
+        'huc');
 
     // then times the currency
     if (ticker) {
@@ -317,8 +300,7 @@ HucTools.toWei = function(number, unit) {
         number instanceof BigNumber || typeof number === 'number'
             ? webu.toBigNumber(number)
             : number,
-        unit.toLowerCase(),
-    );
+        unit.toLowerCase());
   }
 
   return number;
